@@ -1,0 +1,314 @@
+% ----------------------------------------------------------------------------------------------------------------
+% Définition du package
+% ----------------------------------------------------------------------------------------------------------------
+\ProvidesPackage{styles/preambule_personnalisation}
+
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Personnalisation et adaptation pour un document particulier (pour éviter de toucher à preambule_college.sty)
+%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadonnées PERSONNELLES et choix de LICENCE pour les documents PDF
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hypersetup{
+	pdftitle={Usage des moyens informatiques},
+	pdfsubject={Fiche complémentaire au programme d'informatique},
+	pdfkeywords={DO} {Collège} {college} {informatique} {info} {usages},
+	pdfauthor={Samuel Vannay - CC-Licence : http://creativecommons.org/licenses/by-nc-sa/3.0/ch},
+	% Pour insérer une licence Creative Commons (machine readable) dans le fichier pdf
+	pdfcopyright={Cette oeuvre est mise à disposition selon les termes de la Licence Creative Commons Attribution - Pas d'Utilisation Commerciale - Partage dans les Mêmes Conditions 3.0 Suisse (CC BY-NC-SA 3.0 CH)},
+   	pdflicenseurl={http://creativecommons.org/licenses/by-nc-sa/3.0/ch}
+}
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Définition de la taille du document
+% ----------------------------------------------------------------------------------------------------------------
+\geometry{textwidth=16cm,textheight=24cm,right=2cm,top=3cm, footskip=1.5cm}
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Choix et options des fontes (par défaut : latin modern)
+% ----------------------------------------------------------------------------------------------------------------
+%
+% Pour la fonte de texte
+%
+%\defaultfontfeatures{Scale=MatchLowercase,Ligatures=TeX,Mapping=tex−text}
+%%\setmainfont{Linux Libertine}
+%%\setmonofont{Linux Libertine Mono}[Scale=MatchLowercase]
+%%\setsansfont{Linux Biolinum}[Scale=MatchLowercase]
+%\setmainfont{LinLibertine_R.otf}[
+%BoldFont=LinLibertine_RB.otf,
+%ItalicFont=LinLibertine_RI.otf,
+%BoldItalicFont=LinLibertine_RBI.otf	
+%]
+%\setmonofont{LinLibertine_M.otf}[Scale=MatchLowercase]
+%\setsansfont{LinBiolinum_R.otf}[Scale=MatchLowercase]
+%%
+%% Pour la fonte mathématique
+%%
+%\unimathsetup{math-style=ISO}										% Choix de ce qui va être mise en gras...
+%\setmathfont{texgyrepagella-math.otf}[Scale=MatchLowercase]			% Option pour aligner les tailles d'oeil
+%\newfontfamily\pagellaM[Numbers=Lining]{texgyrepagella-math.otf}	% Pour configurer les nombres dans siunitx
+%\sisetup{mode = text,number-text-rm = \pagellaM}					% Adaptation des nombres dans siunitx
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Définition de l'en-tête personnalisée avec le package fancyhdr
+% ----------------------------------------------------------------------------------------------------------------
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter. \ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhf{}
+\fancyhead[LO,RE]{\bfseries \rightmark}
+\fancyhead[LE,RO]{\bfseries \leftmark}
+\fancyfoot[C]{\thepage}
+\fancypagestyle{plain}{
+	\fancyhead{}
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyfoot[C]{\thepage}
+}
+\fancypagestyle{simple}{
+	\fancyhead[LO,RE]{}
+}
+\setlength\headheight{15pt}
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Personnalisation des titres (sous forme de commande pour pouvoir changer en cours de document)
+% ----------------------------------------------------------------------------------------------------------------
+% Pour les chapitres
+
+\newcommand{\rouages}{\smash{\raisebox{-1ex}{\includegraphics[height=4ex]{styles/images/ruota-dentata-grigia-2-01r}}}}
+
+\newcommand{\chapterFormat}{%
+	\titleformat{\chapter}[frame]			% frame pour avoir un cadre
+		{\normalfont\normalsize\scshape}	% Format du bandeau
+		{Chapitre \arabic{chapter} }		% Texte du bandeau
+		{15pt}								% avec frame : esp. vertical autour du titre
+		{\LARGE\bfseries\filcenter}[]		% avant la composition du titre
+	
+	\titleformat{name=\chapter,numberless}[frame]			% variante pour les titres non numérotés
+		{\normalfont\normalsize\scshape}	% Format du bandeau
+		{\ \rouages \ Année scolaire 2021-2022 \ \rouages \ }	% Texte du bandeau
+		{15pt}								% avec frame : esp. vertical autour du titre
+		{\LARGE\bfseries\filcenter}[]		% avant la composition du titre
+	
+	
+	\titlespacing{\chapter}					% régler l'espacement autour du titre de chapitre
+		{0pt}								% à gauche
+		{-2cm}								% avant
+		{15pt}								% après
+		[0cm]								% à droite
+}
+% Pour les annexes
+\newcommand{\appendixFormat}{%
+	\titleformat{\chapter}[frame]			% frame pour avoir un cadre
+		{\normalfont\normalsize\scshape}	% Format du bandeau
+		{Annexe \arabic{chapter} }			% Texte du bandeau
+		{15pt}								% avec frame : esp. vertical autour du titre
+		{\LARGE\bfseries\filcenter}[]		% avant la composition du titre
+	
+	\titlespacing{\chapter}					% régler l'espacement autour du titre de chapitre
+		{0pt}								% à gauche
+		{-18pt}								% avant
+		{15pt}								% après
+		[0cm]								% à droite
+}
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Supprime le rappel au numéro de chapitre dans le numréo de section
+% ----------------------------------------------------------------------------------------------------------------
+\renewcommand{\thesection}{\arabic{section}}
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Personnalisation des chapitres finaux
+% ----------------------------------------------------------------------------------------------------------------
+\def\chapterSpecial#1{{\let\cleardoublepage\relax\chapter*{#1}}\addcontentsline{toc}{chapter}{#1}}
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Couleurs des hyperliens (par défaut : rouge, défini dans collection_base.sty
+% ----------------------------------------------------------------------------------------------------------------
+\hypersetup{
+	linkcolor={black},
+	breaklinks=true	
+}
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Personnalisation de la table des matières (nombres de niveaux)
+% ----------------------------------------------------------------------------------------------------------------
+\setcounter{tocdepth}{1}
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Redéfinition de la mise en forme des définitions (utilise le gras au lieu de l'italique)
+% ----------------------------------------------------------------------------------------------------------------
+\renewcommand{\emphdef}[1]{%		% Style pour les mots à définir
+	\textbf{#1}%
+}
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Personnalisation des légendes
+% ----------------------------------------------------------------------------------------------------------------
+\captionsetup[figure]{name=Fig.}
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Personnalisation de la bibliographie
+% ----------------------------------------------------------------------------------------------------------------
+% ATTENTION : les options "backend", "style", "bibstyle", "citestyle", "natbib" et "mcite" ne peuvent être fixées
+% que dans les options du \usepackage
+\usepackage[backend=biber,style=ieee]{biblatex}	% Pour la création de la bibliographie
+\ExecuteBibliographyOptions{
+	sortlocale=auto,					% Récupère les infos du pacakge polyglosia
+	isbn=true,
+	url=true, 
+	doi=false,
+	eprint=false
+}
+\addbibresource{bibliographie/usages.bib}
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Pour l'inclusion de PDF
+% ----------------------------------------------------------------------------------------------------------------
+\usepackage{pdfpages}
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Redéfinition du \cleardoublepage pour avoir des pages paires entièrement vides entre deux chapitres
+% ----------------------------------------------------------------------------------------------------------------
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+	\hbox{}
+	\vspace*{\fill}
+	\thispagestyle{empty}
+	\newpage
+	\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Définition des styles les figures tikz
+% ----------------------------------------------------------------------------------------------------------------
+\definecolor{rouge}{rgb}{1,0,0}
+\definecolor{vert}{rgb}{0,0.59765625,0}
+\definecolor{bleu}{rgb}{0,0,1}
+\definecolor{magenta}{rgb}{1,0,1}
+
+\tikzset{rouge/.style={color=rouge}}
+\tikzset{vert/.style={color=vert}}
+\tikzset{bleu/.style={draw=bleu}}
+\tikzset{magenta/.style={draw=magenta}}
+
+\tikzset{point/.style={fill=bleu,draw=bleu}}
+\tikzset{texte/.style={text=black,font=\normalsize}}
+\tikzset{trait/.style={draw=black,line width=0.75pt}}
+\tikzset{epais/.style={line width=2pt}}
+\tikzset{tille/.style={dash pattern=on 2pt off 2pt}}
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% \encadre
+% ----------------------------------------------------------------------------------------------------------------
+\tikzstyle{styleTitreEncadre} = [draw=blue, rounded corners, fill=white, text= black]
+\tikzstyle{styleBoiteEncadre} = [draw=blue, fill=blue!5, very thick, rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
+
+\newcommand{\encadreTitre}{A relever}
+\newsavebox{\encadreBoiteCmd}
+
+\NewDocumentEnvironment{encadreBoite1}{o}{%
+	\renewcommand{\encadreTitre}{\textbf{#1}}
+	\begin{lrbox}{\encadreBoiteCmd}%
+		\begin{minipage}[!h]{\linewidth-1cm}
+		}%
+		{%
+		\end{minipage}
+	\end{lrbox}
+	\begin{center}
+		\begin{tikzpicture}
+		\node[styleBoiteEncadre] (box){\usebox{\encadreBoiteCmd}};
+		\node[styleTitreEncadre, right=10pt] at (box.north west) {\encadreTitre};
+		\end{tikzpicture}
+	\end{center}
+}
+\NewDocumentEnvironment{encadreBoite2}{}{%
+	\begin{lrbox}{\encadreBoiteCmd}%
+		\begin{minipage}[!h]{\linewidth-1cm}
+		}%
+		{%
+		\end{minipage}
+	\end{lrbox}
+	\begin{center}
+		\begin{tikzpicture}
+		\node[styleBoiteEncadre] (box){\usebox{\encadreBoiteCmd}};
+		\end{tikzpicture}
+	\end{center}
+}
+
+\NewDocumentCommand{\encadre}{o >{\TrimSpaces}m}{
+	\IfValueTF {#1}{
+		\begin{encadreBoite1}[#1]
+			{#2}
+		\end{encadreBoite1}
+	}{
+		\begin{encadreBoite2}
+			{#2}
+		\end{encadreBoite2}
+	}
+}
+
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Définitions de paramètres utiles
+% ----------------------------------------------------------------------------------------------------------------
+% Espacements verticaux
+\setlength{\columnsep}{20pt}		% Espace entre les colonnes des tableaux
+\setlength{\parskip}{\parsep}			% Espacement vertical entre deux paragraphes consécutifs
+\setlength{\parindent}{0pt}			% Supprime l'indentation des alinéas dans tout le document (à mettre après
+% 									  les définitions basées sur thmbox pour éviter un clash.
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Demande de création de l'index
+% ----------------------------------------------------------------------------------------------------------------
+%\makeindex
+
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Choix des options de compilations
+% ----------------------------------------------------------------------------------------------------------------
+\usepackage[sansReponse]{optional}
